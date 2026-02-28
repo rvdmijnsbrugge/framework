@@ -1,0 +1,1228 @@
+<style>
+  * {
+  box-sizing: border-box;
+}
+
+:root {
+  --light: 240 238 233;
+  --leading: 21px;
+  --dark: 0 0 0;
+}
+
+::selection {
+  background: rgb(var(--light) / 1);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  font-family: times, serif;
+  place-content: top;
+  line-height: 21px;
+  font-size: 13px;
+  display: grid;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+svg {
+  display: block;
+}
+
+h1 {
+  margin: calc(21px * 1) 0;
+  font-weight: inherit;
+  font-size: 21px;
+}
+
+p {
+  margin: 0 0 calc(21px * 1) 0;
+}
+
+a {
+  text-decoration-color: rgba(0,0,0,0);
+  text-underline-offset: 2px;
+  color: inherit;
+}
+a:hover, a:focus {
+  text-decoration-color: rgba(0, 0, 0, 0.125);
+}
+
+button {
+  background: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.75);
+  padding: calc(21px * 0.5);
+  box-sizing: border-box;
+  border: none;
+}
+button:hover, button:focus {
+  color: rgba(0, 0, 0, 1);
+}
+
+body > header nav {
+  grid-template-columns: 42px 42px 1fr 42px 42px;
+  padding: calc(21px * 0.5);
+  box-sizing: border-box;
+  gap: calc(21px * 0.5);
+  align-items: center;
+  display: grid;
+}
+body > header nav a {
+  text-decoration-color: rgba(0,0,0,0);
+  text-underline-offset: 2px;
+  text-align: center;
+  grid-column: 3;
+  color: inherit;
+}
+body > header nav a:is(:hover, :focus) {
+  text-decoration-color: rgba(0, 0, 0, 0.125);
+}
+body > header nav button {
+  background: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.75);
+  min-height: calc(21px * 2);
+  min-width: calc(21px * 2);
+  padding: calc(21px * 0.5);
+  grid-column: 4;
+  border: none;
+}
+body > header nav button:is(:hover, :focus) {
+  color: rgba(0, 0, 0, 1);
+}
+body > header nav [popovertarget="menu"] {
+  grid-column: 1;
+}
+body > header nav [popovertarget="cart"] {
+  grid-column: 5;
+}
+
+body > footer {
+  padding: calc(21px * 3) calc(21px * 1);
+  grid-template-columns: repeat(2,1fr);
+  gap: calc(21px * 2) calc(21px * 1);
+  align-items: start;
+  display: grid;
+}
+body > footer nav {
+  gap: calc(21px * 1);
+  display: grid;
+}
+body > footer nav h4 {
+  font-weight: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+body > footer nav a {
+  text-decoration-color: rgba(0,0,0,0);
+  text-underline-offset: 2px;
+  color: inherit;
+}
+body > footer nav a:hover {
+  text-decoration-color: rgba(0,0,0,0.25);
+}
+body > footer nav ul {
+  gap: calc(21px * 0.5);
+  list-style: none;
+  display: grid;
+  padding: 0;
+  margin: 0;
+}
+
+body > aside {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+body > aside:is(#menu, #search, #cart) {
+  top: calc(21px * 0.5);
+}
+body > aside:is(#menu, #cart, #filter) {
+  bottom: calc(21px * 0.5);
+}
+body > aside:is(#menu, #search, #filter) {
+  left: calc(21px * 0.5);
+}
+body > aside:is(#search, #cart, #filter) {
+  right: calc(21px * 0.5);
+}
+body > aside:is(#menu, #cart) {
+  width: calc(50vw - 21px * 0.5);
+  min-width: 300px;
+  height: auto;
+}
+body > aside:is(#search, #filter) {
+  width: auto;
+}
+body > aside#menu {
+  right: auto;
+}
+body > aside#search {
+  height: calc(21px * 2);
+}
+body > aside#cart {
+  left: auto;
+}
+body > aside#filter {
+  height: calc(100% - 21px * 10);
+  top: auto;
+}
+body > aside header {
+  display: flex;
+}
+body > aside:is(#search, #cart, #filter) header {
+  justify-content: end;
+}
+
+
+details {
+  width: 100%;
+}
+summary {
+  padding-block: calc(21px * 0.25);
+  list-style: none;
+}
+summary:hover,
+summary:focus {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(0, 0, 0, 0.125);
+}
+summary::after {
+  float: right;
+  content: '+';
+}
+details[open] summary::after {
+  content: '–';
+}
+details div {
+  padding-block: calc(21px * 0.75);
+}
+
+
+aside {
+  top: calc(21px * 0.5);
+  min-width: 300px;
+  height: auto;
+  bottom: 1em;
+  width: 38vw;
+  margin: 0;
+  border: 0;
+}
+#menu {
+  left: calc(21px * 0.5);
+  right: auto;
+}
+#cart {
+  right: 1em;
+  left: auto;
+}
+#cart header {
+  justify-content: end;
+  display: flex;
+}
+::backdrop {
+  backdrop-filter: blur(0.25em);
+  background: rgba(0,0,0,0.125);
+}
+aside {
+  padding: 0;
+}
+aside:popover-open {
+  flex-direction: column;
+  display: flex;
+}
+aside header {
+  padding: calc(21px * 0.25);
+}
+aside header button {
+  padding: calc(21px * 0.25 - 2px);
+}
+aside details {
+  padding-inline: calc(21px * 0.5);
+  box-sizing: border-box;
+}
+aside footer {
+  padding: calc(21px * 0.5);
+  margin-top: auto;
+}
+aside footer figure {
+  background: rgba(240,238,233,1);
+  aspect-ratio: 3/2;
+  margin: 0;
+}
+
+main > figure {
+  scroll-snap-type: x mandatory;
+  overflow-x: scroll;
+  display: flex;
+  width: 100vw;
+  margin: 0;
+}
+main > figure::-webkit-scrollbar {
+  height: 1px;
+}
+main > figure::-webkit-scrollbar-thumb {
+  background: black;
+}
+main > figure > * {
+  background: rgba(240, 238, 233, 1);
+  scroll-snap-align: center;
+  place-content: center;
+  aspect-ratio: 4/5;
+  flex-shrink: 0;
+  display: grid;
+  width: 100%;
+}
+
+main section {
+  padding: 0 calc(21px * 1);
+}
+
+main section button {
+  padding: calc(21px * 0.25) calc(21px * 0.75);
+  background: rgba(0, 0, 0, 0.875);
+  color: rgba(255, 255, 255, 1);
+  margin: calc(21px * 0) 0;
+  font-family: inherit;
+  line-height: 21px;
+  font-size: 13px;
+  display: block;
+  border: none;
+  width: 100%;
+}
+main section button:is(:hover, :focus) {
+  background: rgba(0, 0, 0, 1);
+}
+
+.label {
+  margin-bottom: calc(21px * 0.5);
+}
+
+.group {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.bookmark:hover svg {
+  fill: currentcolor;
+}
+
+.link {
+  text-decoration-color: rgba(0, 0, 0, 0.125);
+  text-underline-offset: 2px;
+  color: inherit;
+}
+.link:hover {
+  text-decoration-color: rgba(0, 0, 0, 0.25);
+}
+
+.swatches {
+  gap: calc(21px / 2 - 1px + 1px * 2);
+  display: flex;
+}
+.swatches a {
+  border: 1px solid rgba(0,0,0,0);
+  box-sizing: border-box;
+  padding: calc(1px * 2);
+  position: relative;
+  outline: none;
+  height: 21px;
+  width: 21px;
+}
+.swatches a:before {
+  background: rgba(240,238,233,1);
+  inset: calc(1px + 1px * 2);
+  position: absolute;
+  content: '';
+}
+.swatches a:focus,
+.swatches a:hover {
+  border-color: rgba(0,0,0,0.125);
+}
+.swatches a:active {
+  border-color: rgba(0,0,0,0.25);
+}
+.swatches a.active{
+  border-color: rgba(0,0,0,1);
+}
+.swatches a[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+select {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21' height='21' width='21' stroke='currentColor' fill='none'><polyline points='6.5,9 10.5,12 14.5,9'/></svg>") no-repeat right calc(21px * 0.25 - 1px) center / 21px 21px;
+  padding: calc(21px * 0.25 - 2px) calc(21px * 0.75 - 2px);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  -webkit-font-smoothing: antialiased;
+  margin: calc(21px * 1) 0;
+  letter-spacing: 0.125px;
+  box-sizing: border-box;
+  font-family: inherit;
+  line-height: 21px;
+  border-radius: 0;
+  appearance: none;
+  font-size: 13px;
+  display: block;
+  outline: none;
+  width: 100%;
+}
+select:hover {
+  border-color: rgba(0, 0, 0, 0.25);
+}
+select:focus {
+  border-color: rgba(0, 0, 0, 1);
+}
+
+main .accordion {
+  padding: calc(21px * 0.75) 0;
+}
+main .accordion summary {
+  padding: calc(21px * 0.25) 0;
+  list-style: none;
+}
+main .accordion summary:is(:hover, :focus) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(0, 0, 0, 0.125);
+}
+main .accordion summary:focus {
+  text-decoration-color: rgba(0, 0, 0, 0.25);
+}
+main .accordion summary::after {
+  float: right;
+  content: '+';
+}
+main .accordion details[open] summary::after {
+  content: '–';
+}
+main .accordion details > *:not(summary) {
+  padding: calc(21px * 0.5) 0;
+}
+
+h2, h3 {
+  margin: calc(21px * 0.5) 0;
+  font-weight: inherit;
+  line-height: 21px;
+}
+h2 {
+  font-size: 17px;
+}
+h3 {
+  font-size: 15px;
+}
+p {
+  margin-bottom: 21px;
+}
+
+.complementary {
+  margin: 0 0 calc(21px * 2) 0;
+}
+.complementary h4 {
+  margin: 0 0 calc(21px * 0.5) 0;
+  font-weight: inherit;
+}
+
+.about {
+  margin: calc(21px * 1) 0;
+}
+.about figure {
+  background: rgba(0, 0, 0, 0.875);
+  margin: 0 0 21px 0;
+  aspect-ratio: 3/2;
+}
+
+.products {
+  margin: calc(21px * 2) 0;
+}
+.products h2 {
+  margin-bottom: 21px;
+}
+
+.cards {
+  padding: calc(21px * 0) calc(21px * 0);
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(21px * 2) calc(21px * 1);
+  display: grid;
+}
+
+.card {
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: 1fr auto;
+  position: relative;
+  display: grid;
+}
+
+.card .images {
+  margin-bottom: calc(21px * 0.5);
+  scroll-snap-type: x mandatory;
+  grid-column: span 2;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  aspect-ratio: 4/5;
+  display: flex;
+  width: 100%;
+  grid-row: 1;
+}
+.card .images::-webkit-scrollbar {
+  height: 1px;
+  opacity: 0;
+}
+.card .images:hover::-webkit-scrollbar {
+  opacity: 1;
+}
+.card .images::-webkit-scrollbar-thumb {
+  background: black;
+}
+.card .images::-webkit-scrollbar-track {
+  background: white;
+}
+
+.card .images .image {
+  background: rgba(240,238,233,1);
+  scroll-snap-align: center;
+  place-content: center;
+  aspect-ratio: 4/5;
+  flex-shrink: 0;
+  display: grid;
+  width: 100%;
+}
+.card .images .image:first-of-type {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+}
+.card .images .image:not(:first-of-type) {
+  opacity: 0;
+}
+.card .images:hover .image {
+  opacity: 1;
+}
+
+.card .name {
+  grid-column: 1;
+  grid-row: 2;
+}
+.card .price {
+  grid-column: 2;
+  grid-row: 2;
+}
+.card .badge {
+  left: calc(21px * 0.5);
+  top: calc(21px * 0.25);
+  position: absolute;
+  opacity: 0.25;
+}
+
+.card .bookmark {
+  padding: calc(21px * 0.25) calc(21px * 0.125);
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+.card .bookmark:hover svg {
+  fill: currentcolor;
+}
+.card:hover .bookmark {
+  opacity: 1;
+}
+
+.card .sizes {
+  margin-bottom: calc(21px * 0.5);
+  gap: calc(21px * 0.5);
+  grid-column: span 2;
+  display: flex;
+  grid-row: 3;
+  opacity: 0;
+}
+.card:hover .sizes {
+  opacity: 1;
+}
+.card .size[aria-disabled="true"] {
+  opacity: 0.25;
+}
+
+.card .swatches {
+  gap: calc(21px / 2 - 1px + 1px * 2);
+  grid-column: span 2;
+  display: flex;
+  grid-row: 4;
+}
+.card .swatches a {
+  border: 1px solid rgba(0,0,0,0);
+  box-sizing: border-box;
+  padding: calc(1px * 2);
+  position: relative;
+  outline: none;
+  height: 21px;
+  width: 21px;
+}
+.card .swatches a[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.25;
+}
+.card .swatches a:before {
+  background: rgba(240,238,233,1);
+  inset: calc(1px + 1px * 2);
+  position: absolute;
+  content: '';
+}
+.card .swatches a:focus,
+.card .swatches a:hover {
+  border-color: rgba(0,0,0,0.125);
+}
+.card .swatches a:active {
+  border-color: rgba(0,0,0,0.25);
+}
+.card .swatches a.active{
+  border-color: rgba(0,0,0,1);
+}
+</style>
+
+<header>
+  <nav>
+    <button popovertarget="menu">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+        <line x2="21" y1="7" y2="7"/>
+        <line x2="21" y1="14" y2="14"/>
+      </svg>
+    </button>
+    <a href="/">Logo</a>
+    <button popovertarget="search">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+        <line x1="10.5" y1="10.5" x2="20.5" y2="20.5"/>
+        <circle cx="6.5" cy="6.5" r="6"/>
+      </svg>
+    </button>
+    <button popovertarget="cart">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+        <path d="M15.5,13.5V5.5c0-2.76-2.24-5-5-5s-5,2.24-5,5v8"/>
+        <rect x="0.5" y="13.5" width="20" height="7"/>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  
+  <figure class="media">
+    <div>0</div>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+   </figure>
+  
+  <!--
+
+    Subtitle (badge)
+
+  -->
+  
+  <section class="details">
+     
+     <div class="group">
+       <h1>
+         Paran Dress
+       </h1>
+       <div class="bookmark">
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+           <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+         </svg>
+       </div>
+     </div>
+     
+     <p class="price">
+       $1,100
+     </p>
+     
+     <div class="label">
+       Color: Papyrus
+     </div>
+     
+     <div class="group">
+       <div class="swatches">
+         <a class="active" href="#red"></a>
+         <a href="#green" aria-disabled="true"></a>
+         <a href="#blue"></a>
+       </div>
+       <a class="link" href="#size-guide">
+         Size Guide
+       </a>
+     </div>
+     
+     <select>
+      <option>
+        Select Size
+      </option>
+      <option>
+        XS — Only 1 left
+      </option>
+      <option>
+        S
+      </option>
+      <option disabled>
+        M — Sold out
+      </option>
+      <option>
+        L — Only 1 left
+      </option>
+      <option disabled>
+        XL — Sold out
+      </option>
+    </select>
+     
+   <button>Add to Bag</button>
+     
+   <div class="accordion">
+      <details name="product" open>
+        <summary>
+          Description
+        </summary>
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget felis vel dui efficitur dignissim. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+        </div>
+      </details>
+      <details name="product">
+        <summary>
+          Composition
+        </summary>
+        <div>
+          Nam tincidunt ac mauris sed gravida. Vivamus id enim in ligula scelerisque rutrum. Phasellus laoreet facilisis faucibus. Phasellus sed elit nec lectus finibus egestas vel sit amet risus.
+        </div>
+      </details>
+      <details name="product">
+        <summary>
+          Care
+        </summary>
+        <div>
+          Sed eget diam id nisi rutrum consequat. Aliquam vestibulum nibh at rutrum facilisis. Curabitur sit amet dictum ante. In consectetur in sem at euismod. Donec elementum quam odio, nec imperdiet orci auctor eu. Vestibulum sed risus dui. Suspendisse vitae ex sed nibh vulputate fringilla.
+        </div>
+      </details>
+    </div>
+     
+  </section>
+  
+  <section class="complementary">
+    <h4>Complementary</h4>
+    <div class="cards">
+      <div class="card">
+        <div class="images">
+          <div class="image">0</div>
+          <div class="image">1</div>
+          <div class="image">2</div>
+          <div class="image">3</div>
+          <div class="image">4</div>
+          <div class="image">5</div>
+        </div>
+        <div class="name">
+          Soft Margaux 15 Bag
+        </div>
+        <div class="price">
+          $1,100
+        </div>
+        <div class="sizes">
+          <div class="size" aria-disabled="true">
+            XS
+          </div>
+          <div class="size">
+            S
+          </div>
+          <div class="size">
+            M
+          </div>
+          <div class="size" aria-disabled="true">
+            L
+          </div>
+          <div class="size" aria-disabled="true">
+            XL
+          </div>
+        </div>
+        <div class="swatches">
+          <a href="#red" class="active"></a>
+          <a href="#green"></a>
+          <a href="#blue" aria-disabled="true"></a>
+        </div>
+        <div class="badge">
+          Pre-order
+        </div>
+        <div class="bookmark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+            <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="images">
+          <div class="image">0</div>
+          <div class="image">1</div>
+          <div class="image">2</div>
+          <div class="image">3</div>
+          <div class="image">4</div>
+          <div class="image">5</div>
+        </div>
+        <div class="name">
+          Soft Margaux 15 Bag
+        </div>
+        <div class="price">
+          $1,100
+        </div>
+        <div class="sizes">
+          <div class="size" aria-disabled="true">
+            XS
+          </div>
+          <div class="size">
+            S
+          </div>
+          <div class="size">
+            M
+          </div>
+          <div class="size" aria-disabled="true">
+            L
+          </div>
+          <div class="size" aria-disabled="true">
+            XL
+          </div>
+        </div>
+        <div class="swatches">
+          <a href="#red" class="active"></a>
+          <a href="#green"></a>
+          <a href="#blue" aria-disabled="true"></a>
+        </div>
+        <div class="badge">
+          Pre-order
+        </div>
+        <div class="bookmark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+            <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!--
+
+    Complementary products
+
+  -->
+  
+  <section class="about">
+    <figure></figure>
+    <h2>About the Collection</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel lobortis massa. Proin maximus, orci non rutrum vehicula, mi ipsum maximus tortor, faucibus efficitur nulla libero a velit. Praesent tristique ac ante non interdum. Fusce vitae justo vel nulla tincidunt maximus. Nulla vestibulum ex ut urna porta, in fringilla eros venenatis.</p>
+    <h3>History</h3>
+    <p>Suspendisse ut volutpat est. Cras ligula augue, molestie eu elementum vel, mattis in purus. Integer lacinia efficitur justo non feugiat. Nunc ut mauris suscipit, maximus nibh in, congue enim. Suspendisse molestie urna eu elit dictum, at varius velit sollicitudin. Curabitur pretium turpis id consequat ullamcorper.</p>
+    <h3>Expertise</h3>
+    <p>Duis venenatis dui in arcu elementum, et lacinia eros venenatis. Integer nisi lectus, gravida a mauris vitae, facilisis dignissim tellus. Ut molestie vulputate nibh, a tristique lacus dapibus eu. Pellentesque laoreet ex ut justo tempus pellentesque ut ac erat.</p>
+  </section>
+  
+  <!--
+
+    Schwartz Paradox of Choice?
+    The Row limits similar items to 3.
+
+  -->
+  
+  <section class="products">
+    <h2>More from the collection</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="images">
+          <div class="image">0</div>
+          <div class="image">1</div>
+          <div class="image">2</div>
+          <div class="image">3</div>
+          <div class="image">4</div>
+          <div class="image">5</div>
+        </div>
+        <div class="name">
+          Soft Margaux 15 Bag
+        </div>
+        <div class="price">
+          $1,100
+        </div>
+        <div class="sizes">
+          <div class="size" aria-disabled="true">
+            XS
+          </div>
+          <div class="size">
+            S
+          </div>
+          <div class="size">
+            M
+          </div>
+          <div class="size" aria-disabled="true">
+            L
+          </div>
+          <div class="size" aria-disabled="true">
+            XL
+          </div>
+        </div>
+        <div class="swatches">
+          <a href="#red" class="active"></a>
+          <a href="#green"></a>
+          <a href="#blue" aria-disabled="true"></a>
+        </div>
+        <div class="badge">
+          Pre-order
+        </div>
+        <div class="bookmark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+            <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="images">
+          <div class="image">0</div>
+          <div class="image">1</div>
+          <div class="image">2</div>
+          <div class="image">3</div>
+          <div class="image">4</div>
+          <div class="image">5</div>
+        </div>
+        <div class="name">
+          Soft Margaux 15 Bag
+        </div>
+        <div class="price">
+          $1,100
+        </div>
+        <div class="sizes">
+          <div class="size" aria-disabled="true">
+            XS
+          </div>
+          <div class="size">
+            S
+          </div>
+          <div class="size">
+            M
+          </div>
+          <div class="size" aria-disabled="true">
+            L
+          </div>
+          <div class="size" aria-disabled="true">
+            XL
+          </div>
+        </div>
+        <div class="swatches">
+          <a href="#red" class="active"></a>
+          <a href="#green"></a>
+          <a href="#blue" aria-disabled="true"></a>
+        </div>
+        <div class="badge">
+          Pre-order
+        </div>
+        <div class="bookmark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+            <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="images">
+          <div class="image">0</div>
+          <div class="image">1</div>
+          <div class="image">2</div>
+          <div class="image">3</div>
+          <div class="image">4</div>
+          <div class="image">5</div>
+        </div>
+        <div class="name">
+          Soft Margaux 15 Bag
+        </div>
+        <div class="price">
+          $1,100
+        </div>
+        <div class="sizes">
+          <div class="size" aria-disabled="true">
+            XS
+          </div>
+          <div class="size">
+            S
+          </div>
+          <div class="size">
+            M
+          </div>
+          <div class="size" aria-disabled="true">
+            L
+          </div>
+          <div class="size" aria-disabled="true">
+            XL
+          </div>
+        </div>
+        <div class="swatches">
+          <a href="#red" class="active"></a>
+          <a href="#green"></a>
+          <a href="#blue" aria-disabled="true"></a>
+        </div>
+        <div class="badge">
+          Pre-order
+        </div>
+        <div class="bookmark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+            <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="images">
+          <div class="image">0</div>
+          <div class="image">1</div>
+          <div class="image">2</div>
+          <div class="image">3</div>
+          <div class="image">4</div>
+          <div class="image">5</div>
+        </div>
+        <div class="name">
+          Soft Margaux 15 Bag
+        </div>
+        <div class="price">
+          $1,100
+        </div>
+        <div class="sizes">
+          <div class="size" aria-disabled="true">
+            XS
+          </div>
+          <div class="size">
+            S
+          </div>
+          <div class="size">
+            M
+          </div>
+          <div class="size" aria-disabled="true">
+            L
+          </div>
+          <div class="size" aria-disabled="true">
+            XL
+          </div>
+        </div>
+        <div class="swatches">
+          <a href="#red" class="active"></a>
+          <a href="#green"></a>
+          <a href="#blue" aria-disabled="true"></a>
+        </div>
+        <div class="badge">
+          Pre-order
+        </div>
+        <div class="bookmark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+            <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <nav>
+    <h4>
+      <a href="#">
+        Information
+      </a>
+    </h4>
+    <ul>
+      <li>
+        <a href="#">
+          About
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          Shipping
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          Returns
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <h4>
+      <a href="#">
+        Policies
+      </a>
+    </h4>
+    <ul>
+      <li>
+        <a href="#">
+          Terms
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          Privacy
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          Accessibility
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <h4>
+      <a href="#">
+        Social
+      </a>
+    </h4>
+    <ul>
+      <li>
+        <a href="#">
+          Instagram
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          YouTube
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          TikTok
+        </a>
+      </li>
+    </ul>
+  </nav>
+</footer>
+
+<aside popover id="menu">
+  <header>
+    <button popovertarget="menu">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" height="21" width="21" stroke="currentColor" fill="none">
+      <line x1="17.92" y1="17.92" x2="3.08" y2="3.08"/>
+      <line x1="3.08" y1="17.92" x2="17.92" y2="3.08"/>
+    </svg>
+    </button>
+  </header>
+  <details name="accordion" open>
+    <summary>
+      <span>Links</span>
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <details name="accordion">
+    <summary>
+      Links
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <details name="accordion">
+    <summary>
+      Links
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <details name="accordion">
+    <summary>
+      Links
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <details name="accordion">
+    <summary>
+      Links
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <footer>
+    <figure></figure>
+    <em>
+      Most Popular
+    </em>
+  </footer>
+</aside>
+
+<aside popover id="search">
+  <header>
+    <search>
+      <form action="#search">
+        <input type="search" name="search"/>
+        <button type="submit">Search</button>
+      </form>
+    </search>
+    <button popovertarget="search">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" height="21" width="21" stroke="currentColor" fill="none">
+        <line x1="17.92" y1="17.92" x2="3.08" y2="3.08"/>
+        <line x1="3.08" y1="17.92" x2="17.92" y2="3.08"/>
+      </svg>
+    </button>
+  </header>
+</aside>
+
+<aside popover id="cart">
+  <header>
+    <button popovertarget="cart">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" height="21" width="21" stroke="currentColor" fill="none">
+        <line x1="17.92" y1="17.92" x2="3.08" y2="3.08"/>
+        <line x1="3.08" y1="17.92" x2="17.92" y2="3.08"/>
+      </svg>
+    </button>
+  </header>
+  <footer>
+    <figure></figure>
+    <em>
+      Most Popular
+    </em>
+  </footer>
+</aside>
