@@ -1,1 +1,27 @@
+* {
+  box-sizing: border-box;
+}
 
+:root {
+  --light: 240 238 233;
+  --leading: 21px;
+  --dark: 0 0 0;
+}
+
+::selection {
+  background: rgb(var(--light)/1);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  line-height: var(--leading);
+  font-size: 13px;
+}
+
+body {
+  margin: 0;
+}
+
+svg {
+  display: block;
+}
