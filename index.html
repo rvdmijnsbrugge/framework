@@ -1,0 +1,963 @@
+<style>
+  /*
+
+  © 2026 Rembrant Van der Mijnsbrugge.
+  All rights reserved.
+
+  https://glasscss.com
+
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --light: 240 238 233;
+  --leading: 21px;
+  --dark: 0 0 0;
+}
+
+::selection {
+  background: rgb(var(--light) / 1);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.125px;
+  line-height: 21px;
+  font-size: 13px;
+}
+
+body {
+  margin: 0;
+}
+
+::selection {
+  background: rgba(240, 238, 233, 1);
+}
+
+::backdrop {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.125'/></svg>");
+  background-color: rgba(0,0,0,0.0625);
+  background-size: 400px 400px;
+  backdrop-filter: blur(8px);
+  background-repeat: repeat;
+}
+
+a {
+  text-decoration-color: rgba(0,0,0,0);
+  text-underline-offset: 2px;
+  color: inherit;
+}
+a:hover, a:focus {
+  text-decoration-color: rgba(0, 0, 0, 0.125);
+}
+
+button {
+  background: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.75);
+  padding: calc(21px * 0.5);
+  box-sizing: border-box;
+  border: none;
+}
+button:hover, button:focus {
+  color: rgba(0, 0, 0, 1);
+}
+
+svg {
+  display: block;
+}
+
+
+body > header nav {
+  grid-template-columns: 42px 42px 1fr 42px 42px;
+  padding: calc(21px * 0.5);
+  box-sizing: border-box;
+  gap: calc(21px * 0.5);
+  align-items: center;
+  display: grid;
+}
+body > header nav a {
+  text-align: center;
+  grid-column: 3;
+}
+body > header nav button {
+  min-height: calc(21px * 2);
+  min-width: calc(21px * 2);
+  grid-column: 4;
+}
+body > header nav [popovertarget="menu"] {
+  grid-column: 1;
+}
+body > header nav [popovertarget="cart"] {
+  grid-column: 5;
+}
+
+
+body > footer {
+  padding: calc(21px * 4) calc(21px * 1);
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(21px * 2) calc(21px * 1);
+  align-items: start;
+  display: grid;
+}
+body > footer nav {
+  gap: calc(21px * 1);
+  display: grid;
+}
+body > footer nav h4 {
+  font-weight: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+body > footer nav a {
+  text-decoration-color: rgba(0,0,0,0);
+  text-underline-offset: 2px;
+  color: inherit;
+}
+body > footer nav a:is(:hover, :focus) {
+  text-decoration-color: rgba(0,0,0,0.25);
+}
+body > footer nav ul {
+  gap: calc(21px * 0.5);
+  list-style: none;
+  display: grid;
+  padding: 0;
+  margin: 0;
+}
+
+
+figure {
+  padding: 0 21px;
+  display: grid;
+  margin: 0;
+}
+.layers {
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  grid-area: 1/-1;
+  display: grid;
+  z-index: 0;
+}
+.one {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)'/></svg>");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
+  filter: grayscale(1);
+  grid-area: 1/-1;
+  z-index: 0;
+}
+.two {
+  background: rgba(0, 0, 0, 0.84375);
+  grid-area: 1/1;
+  z-index: 1;
+}
+.three {
+  background: linear-gradient(transparent, black);
+  filter: blur(175px);
+  grid-area: 1/1;
+  z-index: 2;
+}
+.overlay {
+  padding: calc(var(--leading) * 1.5) calc(var(--leading) * 1);
+  place-content: end center;
+  text-align: center;
+  grid-area: 1/-1;
+  display: grid;
+  color: white;
+  z-index: 1;
+}
+.overlay p {
+  margin: 0 0 calc(var(--leading) * 0.5) 0;
+}
+.overlay h1 {
+  margin: 0 0 calc(var(--leading) * 1.5) 0;
+  line-height: var(--leading);
+  font-weight: inherit;
+  font-size: 21px;
+}
+.overlay a {
+  text-decoration-color: rgba(255 255 255 / 0.25);
+  text-underline-offset: 2px;
+  color: inherit;
+}
+.overlay a:is(:hover, :focus) {
+  text-decoration-color: rgb(255 255 255 / 0.5);
+}
+
+
+details {
+  width: 100%;
+}
+summary {
+  padding-block: calc(21px * 0.25);
+  list-style: none;
+}
+summary:hover,
+summary:focus {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(0, 0, 0, 0.125);
+}
+summary::after {
+  float: right;
+  content: '+';
+}
+details[open] summary::after {
+  content: '–';
+}
+details div {
+  padding-block: calc(21px * 0.75);
+}
+
+
+aside {
+  top: calc(21px * 0.5);
+  min-width: 300px;
+  height: auto;
+  bottom: 1em;
+  width: 38vw;
+  margin: 0;
+  border: 0;
+}
+#menu {
+  left: calc(21px * 0.5);
+  right: auto;
+}
+#cart {
+  right: 1em;
+  left: auto;
+}
+#cart header {
+  justify-content: end;
+  display: flex;
+}
+aside {
+  padding: 0;
+}
+aside:popover-open {
+  flex-direction: column;
+  display: flex;
+}
+aside header {
+  padding: calc(21px * 0.25);
+}
+aside header button {
+  padding: calc(21px * 0.25 - 2px);
+}
+aside details {
+  padding-inline: calc(21px * 0.5);
+  box-sizing: border-box;
+}
+aside footer {
+  padding: calc(21px * 0.5);
+  margin-top: auto;
+}
+aside footer figure {
+  background: rgba(240,238,233,1);
+  aspect-ratio: 3/2;
+  margin: 0;
+}
+
+
+.product {
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: 1fr auto;
+  position: relative;
+  display: grid;
+}
+
+.images {
+  margin-bottom: calc(21px * 0.5);
+  scroll-snap-type: x mandatory;
+  grid-column: span 2;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  aspect-ratio: 4/5;
+  display: flex;
+  width: 100%;
+  grid-row: 1;
+}
+.images::-webkit-scrollbar {
+  height: 1px;
+  opacity: 0;
+}
+.images:hover::-webkit-scrollbar {
+  opacity: 1;
+}
+.images::-webkit-scrollbar-thumb {
+  background: black;
+}
+.images::-webkit-scrollbar-track {
+  background: white;
+}
+
+.image {
+  background: rgba(240,238,233,1);
+  scroll-snap-align: center;
+  place-content: center;
+  aspect-ratio: 4/5;
+  flex-shrink: 0;
+  display: grid;
+  width: 100%;
+}
+.image:first-of-type {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+}
+.image:not(:first-of-type) {
+  opacity: 0;
+}
+.images:hover .image {
+  opacity: 1;
+}
+
+.name {
+  grid-column: 1;
+  grid-row: 2;
+}
+.price {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.badge {
+  left: calc(21px * 0.5);
+  top: calc(21px * 0.25);
+  position: absolute;
+  opacity: 0.25;
+}
+
+.bookmark {
+  padding: calc(21px * 0.25) calc(21px * 0.125);
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+.bookmark:hover svg {
+  fill: currentcolor;
+}
+.product:hover .bookmark {
+  opacity: 1;
+}
+
+.sizes {
+  margin-bottom: calc(21px * 0.5);
+  gap: calc(21px * 0.5);
+  grid-column: span 2;
+  display: flex;
+  grid-row: 3;
+  opacity: 0;
+}
+.product:hover .sizes {
+  opacity: 1;
+}
+.size[aria-disabled="true"] {
+  opacity: 0.25;
+}
+
+.swatches {
+  gap: calc(21px / 2 - 1px + 1px * 2);
+  grid-column: span 2;
+  display: flex;
+  grid-row: 4;
+}
+.swatches a {
+  border: 1px solid rgba(0,0,0,0);
+  box-sizing: border-box;
+  padding: calc(1px * 2);
+  position: relative;
+  outline: none;
+  height: 21px;
+  width: 21px;
+}
+.swatches a[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.25;
+}
+.swatches a:before {
+  background: rgba(240,238,233,1);
+  inset: calc(1px + 1px * 2);
+  position: absolute;
+  content: '';
+}
+.swatches a:focus,
+.swatches a:hover {
+  border-color: rgba(0,0,0,0.125);
+}
+.swatches a:active {
+  border-color: rgba(0,0,0,0.25);
+}
+.swatches a.active{
+  border-color: rgba(0,0,0,1);
+}
+
+
+.products {
+  padding: calc(21px * 2) calc(21px * 1);
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(21px * 2) calc(21px * 1);
+  display: grid;
+}
+
+
+.video {
+  background: rgba(240, 238, 233, 1);
+  margin: 0 calc(21px * 1);
+  aspect-ratio: 16/9;
+}
+
+
+/*
+
+  © 2026 Rembrant Van der Mijnsbrugge.
+  All rights reserved.
+
+  https://www.guggenheim.org/wp-content/uploads/2013/11/rothko_black_gray-1024.jpg
+
+*/
+
+.frame {
+  width: calc(100vw - 21px * 2);
+  margin: 0 calc(21px * 1);
+  aspect-ratio: 8/5;
+  overflow: hidden;
+  display: grid;
+}
+.background {
+  background: rgba(240, 238, 233, 1);
+  grid-area: 1 / 1;
+  z-index: 0;
+}
+.noise {
+  background: rgba(0, 0, 0, 0) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)'/></svg>") repeat 0 0 / 200px 200px;
+  mix-blend-mode: multiply;
+  filter: grayscale(0);
+  grid-area: 1 / 1;
+  z-index: 1;
+}
+.base {
+  background: rgba(0, 0, 0, 0.875);
+  mix-blend-mode: multiply;
+  grid-area: 1 / 1;
+  z-index: 2;
+}
+.bottom {
+  background: linear-gradient(
+    rgba(89, 86, 75, 0),
+    rgba(89, 86, 75, 0),
+    rgba(89, 86, 75, 0.375),
+    rgba(89, 86, 75, 0.25)
+  );
+  mix-blend-mode: difference;
+  filter: blur(2.5vh);
+  grid-area: 1 / 1;
+  z-index: 3;
+}
+.top {
+  background: linear-gradient(
+    rgba(52, 50, 45, 0),
+    rgba(52, 50, 45, 0),
+    rgba(52, 50, 45, 0),
+    rgba(52, 50, 45, 0.125)
+  );
+  mix-blend-mode: difference;
+  filter: blur(5vh);
+  grid-area: 1 / 1;
+  z-index: 4;
+}
+.signature {
+  padding: calc(21px * 0.75) calc(21px * 0.75);
+  color: rgba(0, 0, 0, 0.375);
+  mix-blend-mode: multiply;
+  place-content: end end;
+  grid-area: 1 / 1;
+  display: grid;
+  z-index: 5;
+}
+
+
+.colophon {
+  padding: calc(21px * 1) calc(21px * 1);
+  grid-template-columns: 1fr auto;
+  color: rgba(0, 0, 0, 0.375);
+  display: grid;
+}
+
+
+
+.collections {
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0 21px calc(21px * 2) 21px;
+  display: grid;
+  gap: 21px;
+}
+.collections .collection {
+  background: rgb(0 0 0 / 0.875);
+  place-content: end center;
+  text-align: center;
+  aspect-ratio: 4/5;
+  display: grid;
+  color: white;
+  
+  padding: calc(21px * 1);
+  gap: calc(21px * 0.5);
+}
+.collections a {
+  text-decoration-color: rgba(255 255 255 / 0.25);
+  text-underline-offset: 2px;
+  color: inherit;
+}
+.collections a:is(:hover, :focus) {
+  text-decoration-color: rgb(255 255 255 / 0.5);
+}
+
+.about {
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0 21px;
+  display: grid;
+  gap: 21px;
+}
+.about .media {
+  background: rgb(240 238 233);
+  aspect-ratio: 4/5;
+}
+.about .caption {
+  gap: calc(21px * 0.5);
+  place-content: end;
+  display: grid;
+}
+.about .caption .title {
+  
+}
+.about .caption .title {
+  
+}
+</style>
+<header>
+  <nav>
+    <button popovertarget="menu">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+        <line x2="21" y1="7" y2="7"/>
+        <line x2="21" y1="14" y2="14"/>
+      </svg>
+    </button>
+    <a href="/">Logo</a>
+    <button popovertarget="search">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+        <line x1="10.5" y1="10.5" x2="20.5" y2="20.5"/>
+        <circle cx="6.5" cy="6.5" r="6"/>
+      </svg>
+    </button>
+    <button popovertarget="cart">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+        <path d="M15.5,13.5V5.5c0-2.76-2.24-5-5-5s-5,2.24-5,5v8"/>
+        <rect x="0.5" y="13.5" width="20" height="7"/>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<!--
+
+  Most popular products, search-wise, in search
+  Togetehr with popular search terms
+
+-->
+
+<aside popover id="menu">
+  <header>
+    <button popovertarget="menu">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" height="21" width="21" stroke="currentColor" fill="none">
+      <line x1="17.92" y1="17.92" x2="3.08" y2="3.08"/>
+      <line x1="3.08" y1="17.92" x2="17.92" y2="3.08"/>
+    </svg>
+    </button>
+  </header>
+  <details name="accordion" open>
+    <summary>
+      <span>Links</span>
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <details name="accordion">
+    <summary>
+      Links
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <details name="accordion">
+    <summary>
+      Links
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <details name="accordion">
+    <summary>
+      Links
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <details name="accordion">
+    <summary>
+      Links
+    </summary>
+    <ul>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+      <li>
+        <a href="#">Link</a>
+      </li>
+    </ul>
+  </details>
+  <footer>
+    <figure></figure>
+    <em>
+      Most Popular
+    </em>
+  </footer>
+</aside>
+
+<!--
+
+  Most popular products, purchase-wise, in empty cart
+
+-->
+
+<aside popover id="cart">
+  <header>
+    <button popovertarget="cart">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" height="21" width="21" stroke="currentColor" fill="none">
+        <line x1="17.92" y1="17.92" x2="3.08" y2="3.08"/>
+        <line x1="3.08" y1="17.92" x2="17.92" y2="3.08"/>
+      </svg>
+    </button>
+  </header>
+  <footer>
+    <figure></figure>
+    <em>
+      Most Popular
+    </em>
+  </footer>
+</aside>
+
+<main>
+  
+  <!--
+
+    1. Campaign video or image. Cross channel harmonization.
+    2. Most popular products from that campaign collection.
+    3. Most popular collections; e.g. brands & categories.
+    4. About the company:
+       History. Can they be trusted?
+       Expertise. Is what they're selling authentic?
+
+  -->
+  
+  <figure>
+    <div class="layers">
+      <div class="one"></div>
+      <div class="two"></div>
+      <div class="three"></div>
+    </div>
+    <div class="overlay">
+      <p>
+        Sit amet, consectetur
+      </p>
+      <h1>
+        Lorem ipsum dolor
+      </h1>
+      <a href="#">
+        Shop
+      </a>
+    </div>
+  </figure>
+  
+  <div class="products">
+    <div class="product">
+      <div class="images">
+        <div class="image">0</div>
+        <div class="image">1</div>
+        <div class="image">2</div>
+        <div class="image">3</div>
+        <div class="image">4</div>
+        <div class="image">5</div>
+      </div>
+      <div class="name">
+        Soft Margaux 15 Bag
+      </div>
+      <div class="price">
+        $1,100
+      </div>
+      <div class="sizes">
+        <div class="size" aria-disabled="true">
+          XS
+        </div>
+        <div class="size">
+          S
+        </div>
+        <div class="size">
+          M
+        </div>
+        <div class="size" aria-disabled="true">
+          L
+        </div>
+        <div class="size" aria-disabled="true">
+          XL
+        </div>
+      </div>
+      <div class="swatches">
+        <a href="#red" class="active"></a>
+        <a href="#green"></a>
+        <a href="#blue" aria-disabled="true"></a>
+      </div>
+      <div class="badge">
+        Pre-order
+      </div>
+      <div class="bookmark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+          <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+        </svg>
+      </div>
+    </div>
+    <div class="product">
+      <div class="images">
+        <div class="image">0</div>
+        <div class="image">1</div>
+        <div class="image">2</div>
+        <div class="image">3</div>
+        <div class="image">4</div>
+        <div class="image">5</div>
+      </div>
+      <div class="name">
+        Soft Margaux 15 Bag
+      </div>
+      <div class="price">
+        $1,100
+      </div>
+      <div class="sizes">
+        <div class="size" aria-disabled="true">
+          XS
+        </div>
+        <div class="size">
+          S
+        </div>
+        <div class="size">
+          M
+        </div>
+        <div class="size" aria-disabled="true">
+          L
+        </div>
+        <div class="size" aria-disabled="true">
+          XL
+        </div>
+      </div>
+      <div class="swatches">
+        <a href="#red" class="active"></a>
+        <a href="#green"></a>
+        <a href="#blue" aria-disabled="true"></a>
+      </div>
+      <div class="badge">
+        Pre-order
+      </div>
+      <div class="bookmark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" stroke="currentColor" fill="none" height="21" width="21">
+          <polygon points="14,17.5 10.5,15.5 7,17.5 7,3.5 14,3.5 14,17.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <div class="collections">
+    <div class="collection">
+      <div class="title">
+        Collection
+      </div>
+      <div class="link">
+        <a href="#">Shop</a>
+      </div>
+    </div>
+    <div class="collection">
+      <div class="title">
+        Collection
+      </div>
+      <div class="link">
+        <a href="#">Shop</a>
+      </div>
+    </div>
+    <div class="collection">
+      <div class="title">
+        Collection
+      </div>
+      <div class="link">
+        <a href="#">Shop</a>
+      </div>
+    </div>
+    <div class="collection">
+      <div class="title">
+        Collection
+      </div>
+      <div class="link">
+        <a href="#">Shop</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="about">
+    <div class="media"></div>
+    <div class="caption">
+      <div class="title">
+        About us
+      </div>
+      <div class="text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non diam erat. Pellentesque nec suscipit sapien.
+      </div>
+    </div>
+  </div>
+  
+</main>
+
+<footer>
+  <nav>
+    <h4>
+      <a href="#">
+        Information
+      </a>
+    </h4>
+    <ul>
+      <li>
+        <a href="#">
+          About
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          Shipping
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          Returns
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <h4>
+      <a href="#">
+        Policies
+      </a>
+    </h4>
+    <ul>
+      <li>
+        <a href="#">
+          Terms
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          Privacy
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          Accessibility
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <h4>
+      <a href="#">
+        Social
+      </a>
+    </h4>
+    <ul>
+      <li>
+        <a href="#">
+          Instagram
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          YouTube
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          TikTok
+        </a>
+      </li>
+    </ul>
+  </nav>
+</footer>
+
+<div class="frame">
+  <div class="background"></div>
+  <div class="noise"></div>
+  <div class="base"></div>
+  <div class="bottom"></div>
+  <div class="top"></div>
+  <!--   
+  <em class="signature">
+    Rembrant Van der Mijnsbrugge
+  </em>
+  -->
+</div>
+
+<div class="colophon">
+  <span class="copyright">
+    &copy; 2026 Mote
+  </span>
+  <a class="credit" href="#">
+    Site by Mote
+  </a>
+</div>
