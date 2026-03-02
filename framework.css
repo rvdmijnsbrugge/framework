@@ -15,6 +15,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   line-height: var(--leading);
+  letter-spacing: 0.125px;
   font-size: 13px;
 }
 
