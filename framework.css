@@ -26,3 +26,17 @@ body {
 svg {
   display: block;
 }
+
+h4 {
+  margin: 0 0 calc(var(--leading) * 0.5) 0;
+  font-weight: inherit;
+}
+
+a {
+  text-decoration-color: rgb(var(--dark) / 0);
+  text-underline-offset: 2px;
+  color: inherit;
+}
+a:hover {
+  text-decoration-color: rgb(var(--dark) / 0.25);
+}
